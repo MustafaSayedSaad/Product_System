@@ -1,0 +1,72 @@
+﻿@model SalCreateProductVM
+
+@{
+    ViewData["Title"] = "Add product"; 
+}
+
+<h5> 
+    <i class="bi bi-plus-circle-dotted"></i>
+    Add a new product
+</h5>
+
+<form asp-controller="Games" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="form-group">
+                <label asp-for="ProductCategoryId" class="form-label mt-4"></label>
+                <select class="form-select" asp-for="ProductCategoryId" asp-items="Model.ProductsCategories"
+                        data-placeholder="Select a category" data-minimum-results-for-search="Infinity">
+                    <option value=""></option>
+                </select>
+                <span asp-validation-for="ProductCategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="form-label mt-4"></label>
+                <input type="text" class="form-control" asp-for="Name" placeholder="Name">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>         
+            
+            <div class="form-group">
+                <label asp-for="StartDate" class="form-label mt-4"></label>
+                <input type="datetime" class="form-control" asp-for="StartDate" placeholder="StartDate">
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DurationInHour" class="form-label mt-4"></label>
+                <input type="number" class="form-control" asp-for="DurationInHour" placeholder="DurationInHour">
+                <span asp-validation-for="DurationInHour" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Price" class="form-label mt-4"></label>
+                <input type="number" class="form-control" asp-for="Price" placeholder="Price">
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ImagePath" class="form-label mt-4"></label>
+                <input type="file" class="form-control" asp-for="ImagePath" 
+                    data-rule-extension="@FileSettings.RequiredExtensions.Replace(".", string.Empty)"
+                       data-msg-extension="Not allowed extension"
+                       data-rule-filesize="@FileSettings.MaxFileSizeInBytes"
+                       data-msg-filesize="Maximum allowed size is @FileSettings.MaxFileSizeInMB MB">
+                <small class="form-text text-muted">Only @FileSettings.RequiredExtensions files are allowed with max size @(FileSettings.MaxFileSizeInBytes)MB.</small>
+                <span asp-validation-for="ImagePath" class="text-danger d-block"></span>
+            </div>
+
+            <button type="submit" class="btn btn-light text-black mt-4">Save</button>
+        </div>
+        <div class="col-md-6 d-flex justify-content-center pt-4 overflow-hidden">
+            <img class="cover-preview d-none" alt="Cover" />
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/filesize-validator.js" asp-append-version="true"></script>
+    <script src="~/js/game-form.js" asp-append-version="true"></script>
+}
