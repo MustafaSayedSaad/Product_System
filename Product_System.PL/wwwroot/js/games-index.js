@@ -11,7 +11,7 @@ $(document).ready(function () {
         });
 
         swal.fire({
-            title: 'Are you sure that you need to delete this game?',
+            title: 'Are you sure that you need to delete this product?',
             text: "You won't be able to revert this!",
             icon: 'warning',
             showCancelButton: true,
@@ -21,12 +21,12 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: `/Games/Delete/${btn.data('id')}`,
+                    url: `/Products/Delete/${btn.data('id')}`,
                     method: 'DELETE',
                     success: function () {
                         swal.fire(
                             'Deleted!',
-                            'Game has been deleted.',
+                            'Product has been deleted.',
                             'success'
                         );
 

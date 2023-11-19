@@ -2,7 +2,7 @@
 
 public interface IAuthService
 {
-    //Task<Response<AuthLoginUserResponse>> LoginUserAsync(AuthLoginUserRequest model);
+    Task<AuthLoginUserVM> LoginUserAsync(AuthLoginUserVM model);
     //Task<Response<string>> LogOutUserAsync();
     //Task<Response<AuthUpdateUserRequest>> UpdateUserAsync(string id, AuthUpdateUserRequest model);
     //Task<Response<string>> ShowPasswordToSpecificUserAsync(string id);

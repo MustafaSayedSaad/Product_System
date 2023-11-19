@@ -25,87 +25,20 @@ public class AuthService : IAuthService
 
     //#region Authentication
 
-    //public async Task<Response<AuthLoginUserResponse>> LoginUserAsync(AuthLoginUserRequest model)
-    //{
-    //    string err = _sharLocalizer[Localization.Error];
+    public async Task<AuthLoginUserVM> LoginUserAsync(AuthLoginUserVM model)
+    {
 
-    //    var user = await _unitOfWork.Users.GetFirstOrDefaultAsync(x => x.UserName == model.UserNameOrEmail);
+        var user = await _unitOfWork.Users.GetFirstOrDefaultAsync(x => x.UserName == model.UserNameOrEmail || x.Email == model.UserNameOrEmail);
 
-    //    if (user == null)
-    //        return new Response<AuthLoginUserResponse>
-    //        {
-    //            Data = new AuthLoginUserResponse()
-    //            {
-    //                UserName = model.UserNameOrEmail
-    //            },
-    //            Error = err,
-    //            Message = string.Format(_sharLocalizer[Localization.CannotBeFound],
-    //            _sharLocalizer[Localization.UserNameOrEmail]),
-    //            IsSuccess = false
-    //        };
+        if (user is null)
+            return null!;
 
-    //    var test = await _signInManager.PasswordSignInAsync(user.UserName!, model.Password, model.RememberMe, false);
-    //    if (!test.Succeeded)
-    //        return new Response<AuthLoginUserResponse>
-    //        {
-    //            Data = new AuthLoginUserResponse()
-    //            {
-    //                UserName = model.UserNameOrEmail
-    //            },
-    //            Error = err,
-    //            Message = _sharLocalizer[Localization.PasswordNotmatch],
-    //            IsSuccess = false
-    //        };
+        var test = await _signInManager.PasswordSignInAsync(user.UserName!, model.Password, true, false);
+        if (!test.Succeeded)
+            return null!;
 
-    //    if (!user.IsActive)
-    //    {
-    //        string resultMsg = string.Format(_sharLocalizer[Localization.NotActive],
-    //            _sharLocalizer[Localization.User], model.UserNameOrEmail);
-
-    //        return new Response<AuthLoginUserResponse>()
-    //        {
-    //            Data = new AuthLoginUserResponse()
-    //            {
-    //                UserName = model.UserNameOrEmail
-    //            },
-    //            Error = resultMsg,
-    //            Message = resultMsg
-    //        };
-    //    }
-
-
-    //    if (model.DeviceId != null)
-    //    {
-    //        //user.DeviceId = model.DeviceId;
-
-    //        await _unitOfWork.UserDevices.AddAsync(new ApplicationUserDevice
-    //        {
-    //            UserId = user.Id,
-    //            DeviceId = model.DeviceId
-    //        });
-
-    //        await _unitOfWork.CompleteAsync();
-    //    }
-
-    //    var currentUserRoles = (await _userManager.GetRolesAsync(user)).ToList();
-    //    string superAdminRole = Domain.Constants.Enums.RolesEnums.Superadmin.ToString().Trim();
-
-    //    var jwtSecurityToken = await CreateJwtToken(user);
-    //    var result = new AuthLoginUserResponse
-    //    {
-    //        UserName = user.UserName!,
-    //        Email = user.Email!,
-    //        RoleNames = currentUserRoles,
-    //        Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
-    //        ExpiresOn = jwtSecurityToken.ValidTo
-    //    };
-
-    //    return new Response<AuthLoginUserResponse>
-    //    {
-    //        IsSuccess = true,
-    //        Data = result
-    //    };
-    //}
+        return model;
+    }
 
     //public async Task<Response<AuthUpdateUserRequest>> UpdateUserAsync(string id, AuthUpdateUserRequest model)
     //{

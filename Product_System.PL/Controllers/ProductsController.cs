@@ -4,13 +4,13 @@ public class ProductsController(IProductService service) : Controller
     private readonly IProductService _service = service;
 
 
-    public async Task<IActionResult> IndexAsync(int productCategoryId)
+    public async Task<IActionResult> Index(int productCategoryId)
     {
         var list = await _service.GetAllProductsAsync(productCategoryId);
         return View(list);
     }
 
-    public async Task<IActionResult> DetailsAsync(int id)
+    public async Task<IActionResult> Details(int id)
     {
         var obj = await _service.GetProductByIdAsync(id);
 
@@ -40,11 +40,11 @@ public class ProductsController(IProductService service) : Controller
 
         await _service.CreateProductAsync(model);
 
-        return RedirectToAction(nameof(IndexAsync));
+        return RedirectToAction(nameof(Index));
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> EditAsync([FromRoute] int id)
+    public async Task<IActionResult> Edit([FromRoute] int id)
     {
         var obj = await _service.GetProductByIdAsync(id);
 
@@ -65,7 +65,7 @@ public class ProductsController(IProductService service) : Controller
         if (obj is null)
             return BadRequest();
 
-        return RedirectToAction(nameof(IndexAsync));
+        return RedirectToAction(nameof(Index));
     }
 
     [HttpDelete("{id}")]

@@ -7,4 +7,6 @@ global using Product_System.Domain.ViewModels.Sales;
 global using Product_System.PL.Models;
 global using System.Diagnostics;
 global using System.Threading.Tasks;
+global using Product_System.Services.IServices.Auth;
+global using Product_System.Domain.ViewModels.Auth;
 

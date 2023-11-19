@@ -1,0 +1,29 @@
+﻿@model AuthLoginUserVM
+
+
+@{
+    ViewData["Title"] = "Log in";
+
+}
+
+<form asp-controller="Auth" asp-action="LoginUser" method="post">
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="form-group">
+                <label asp-for="UserNameOrEmail" class="form-label mt-4"></label>
+                <input type="text" class="form-control" asp-for="UserNameOrEmail" placeholder="UserNameOrEmail">
+                <span asp-validation-for="UserNameOrEmail" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password" class="form-label mt-4"></label>
+                <input type="Password" class="form-control" asp-for="Password" placeholder="Password">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+
+            <button type="submit" class="btn btn-light text-black mt-4">Save</button>
+        </div>
+    </div>
+</form>

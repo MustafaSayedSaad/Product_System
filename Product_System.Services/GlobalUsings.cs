@@ -21,3 +21,4 @@ global using Product_System.Domain.Models.Sales;
 global using Product_System.Domain.Interfaces.StaticDataRepository;
 global using Product_System.Domain.ViewModels;
 global using Microsoft.AspNetCore.Mvc.Rendering;
+global using Product_System.Domain.ViewModels.Auth;
